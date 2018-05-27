@@ -45,6 +45,9 @@ pipeline{
 
     stage('Build Image'){
      steps{
+      script {
+      def app
+      }
       app = docker.build("selipe/node")
       }
     }
