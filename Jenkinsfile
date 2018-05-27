@@ -26,7 +26,7 @@ stages{
   stage("Push the image to Docker Hub"){
     steps{
       docker.withRegistry("https://registry.hub.docker.com", "docker-hub-credentials"){
-        app.push(""$env.BUILD_NUMBER")
+        app.push("$env.BUILD_NUMBER")
         app.push("latest")
       }
     }
