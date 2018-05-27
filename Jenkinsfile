@@ -9,15 +9,15 @@ stages{
   }
 
   stage('Build Image'){
-    steps{ /* This builds the actual image */
+    steps{
     def app = docker.build('selipe/node')
     }
   }
 
   stage('Test Image'){
-    steps{/*Run a test framework and run the tests inside the image */
+    steps{
       app.inside{
-        sh 'echo "Tests Passed... :)" '
+        sh 'echo "Tests Passed"'
       }
     }
   }
