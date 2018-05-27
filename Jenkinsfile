@@ -1,5 +1,6 @@
 pipeline{
-
+  import jenkins.model.*
+  jenkins = Jenkins.instance
   agent any
 
   stages{
