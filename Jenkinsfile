@@ -10,18 +10,21 @@ pipeline{
       }
     }
 
-    stage('Build Image'){
-     steps{
-       script {
-        def app = docker.build("selipe/node")
-       }
-      }
-    }
+/**
+*    stage('Build Image'){
+*     steps{
+*       script {
+*        def app = docker.build("selipe/node")
+*       }
+*      }
+*    }
+**/
 
 
-   stage('Push the image to Docker Hub'){
+   stage('Build and Push the image to Docker Hub'){
     steps{
       script{
+        def app = docker.build("selipe/node")
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
           app.push("$env.BUILD_NUMBER")
           app.push("latest")
