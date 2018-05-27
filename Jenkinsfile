@@ -1,36 +1,36 @@
-node {
-    def app
+pipeline{
+agent any
 
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
-
-        checkout scm
+stages{
+  stage('SCM Checkout'){
+    steps{
+      git ''/Users/selipe/my_home/git/hellonode'
     }
+  }
 
-    stage('Build image') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
-
-        app = docker.build("getintodevops/hellonode")
+  stage('Build Image'){
+    steps{ /* This builds the actual image */
+    def app = docker.build('selipe/node')
     }
+  }
 
-    stage('Test image') {
-        /* Ideally, we would run a test framework against our image.
-         * For this example, we're using a Volkswagen-type approach ;-) */
-
-        app.inside {
-            sh 'echo "Tests passed"'
-        }
+  stage('Test Image'){
+    steps{/*Run a test framework and run the tests inside the image */
+      app.inside{
+        sh 'echo "Tests Passed... :)" '
+      }
     }
+  }
 
-    stage('Push image') {
-        /* Finally, we'll push the image with two tags:
-         * First, the incremental build number from Jenkins
-         * Second, the 'latest' tag.
-         * Pushing multiple tags is cheap, as all the layers are reused. */
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
-        }
+  stage('Push the image to Docker Hub'){
+    steps{
+      docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
+        app.push('$env.BUILD_NUMBER')
+        app.push('latest')
+      }
     }
+  }
+
+}
+
 }
