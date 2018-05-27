@@ -10,7 +10,7 @@ stages{
 
   stage("Build Image"){
     steps{
-    def app = docker.build("selipe/node")
+    app = docker.build("selipe/node")
     }
   }
 
