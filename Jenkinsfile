@@ -4,7 +4,7 @@ agent any
 stages{
   stage('SCM Checkout'){
     steps{
-      git ''/Users/selipe/my_home/git/hellonode'
+      git '/Users/selipe/my_home/git/hellonode'
     }
   }
 
