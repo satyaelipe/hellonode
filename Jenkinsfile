@@ -10,7 +10,9 @@ pipeline{ /* +develop branch */
 
     stage('Build'){
       steps{
-        def app = docker.build("selipe/node")
+        script{
+          def app = docker.build("selipe/node")
+        }
         }
     }
 
@@ -20,9 +22,12 @@ pipeline{ /* +develop branch */
                 branch 'release'
             }
         steps {
-          app.inside {
-            sh 'echo "Tests passed"'
+          script{
+           app.inside {
+              sh 'echo "Tests passed"'
            }
+          }
+
           }
     }
 
