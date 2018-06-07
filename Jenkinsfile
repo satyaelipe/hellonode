@@ -1,5 +1,6 @@
 pipeline{ /* +develop branch */
   agent any
+  def app
 
   stages{
     stage('SCM Checkout'){
@@ -11,7 +12,7 @@ pipeline{ /* +develop branch */
     stage('Build'){
       steps{
         script{
-          /*def app = docker.build("selipe/node")*/
+          app = docker.build("selipe/node")
           println "from Build"
         }
         }
@@ -24,9 +25,9 @@ pipeline{ /* +develop branch */
             }
         steps {
           script{
-           /*app.inside {*/
+           app.inside {
               println "Tests passed"
-           /*} */
+           }
           }
 
           }
@@ -34,16 +35,16 @@ pipeline{ /* +develop branch */
 
     stage('Push it to Docker Hub'){
       when {
-              branch 'release'
+              branch 'master'
           }
           steps{
            script{
            println "from push"
             /*def app = docker.build("selipe/node")*/
-            /*  docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
+              docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
               app.push("$env.BUILD_NUMBER")
               app.push("latest")
-      } */
+      }
 
       }
     }
