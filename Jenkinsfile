@@ -1,6 +1,6 @@
+def app
 pipeline{ /* +develop branch */
   agent any
-  def app
 
   stages{
     stage('SCM Checkout'){
