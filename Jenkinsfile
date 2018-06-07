@@ -11,7 +11,8 @@ pipeline{ /* +develop branch */
     stage('Build'){
       steps{
         script{
-          def app = docker.build("selipe/node")
+          /*def app = docker.build("selipe/node")*/
+          println "from Build"
         }
         }
     }
@@ -23,9 +24,9 @@ pipeline{ /* +develop branch */
             }
         steps {
           script{
-           app.inside {
-              sh 'echo "Tests passed"'
-           }
+           /*app.inside {*/
+              println "Tests passed"
+           /*} */
           }
 
           }
@@ -37,11 +38,12 @@ pipeline{ /* +develop branch */
           }
           steps{
            script{
+           println "from push"
             /*def app = docker.build("selipe/node")*/
-              docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
+            /*  docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
               app.push("$env.BUILD_NUMBER")
               app.push("latest")
-      }
+      } */
 
       }
     }
