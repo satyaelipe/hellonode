@@ -6,7 +6,8 @@ pipeline{ /* +develop branch */
     stage('SCM Checkout'){
       steps{
       /*git "/Users/selipe/my_home/git/hellonode"*/
-        git "https://github.com/selipe16474/hellonode.git"
+        // git "https://github.com/selipe16474/hellonode.git"
+        git 'https://github.com/satyaelipe/hellonode.git'
       }
     }
 
